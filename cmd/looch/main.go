@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/rs/zerolog"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/rs/zerolog"
 )
 
 func getInterval() int {

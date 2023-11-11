@@ -35,13 +35,13 @@ build: git-status ${EXECUTABLES}
 	rm -f build/current
 	ln -s $(CDIR)/build/$(COMMIT) $(CDIR)/build/current
 
-release: git-status build
-	mkdir -p release/$(VERSION)
-	@for o in $(GOOS); do \
-	  for a in $(GOARCH); do \
-        tar -C ./build/$(COMMIT)/$${o}/$${a} -czvf release/$(VERSION)/looch_$(VERSION)_$${o}_$${a}.tar.gz . ; \
-	  done \
-    done ; \
+docker-build: ## create docker image with commit tag
+	( \
+	   docker build --no-cache \
+       	-t looch:$(COMMIT) \
+       	-t looch:latest \
+       	-f Dockerfile .; \
+	)
 
 test:
 	@go test -v ${PKG_LIST}
