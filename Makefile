@@ -43,6 +43,13 @@ docker-build: ## create docker image with commit tag
        	-f Dockerfile .; \
 	)
 
+docker-run: ## run docker image
+	( \
+	   docker run -it --rm \
+	   	-e INTERVAL='6' \
+	   	looch \
+	)
+
 test:
 	@go test -v ${PKG_LIST}
 #	@go test -short ${PKG_LIST}
