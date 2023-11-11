@@ -33,10 +33,11 @@ ${EXECUTABLES}:
 
 build: git-status ${EXECUTABLES}
 	rm -f build/current
-	ln -s $(CDIR)/build/$(COMMIT) $(CDIR)/build/current
+	cp -R $(CDIR)/build/$(COMMIT) $(CDIR)/build/current
 
 docker-build: ## create docker image with commit tag
 	( \
+	   cp  \
 	   docker build --no-cache \
        	-t looch:$(COMMIT) \
        	-t looch:latest \
