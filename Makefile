@@ -37,7 +37,6 @@ build: git-status ${EXECUTABLES}
 
 docker-build: ## create docker image with commit tag
 	( \
-	   cp  \
 	   docker build --no-cache \
        	-t looch:$(COMMIT) \
        	-t looch:latest \
