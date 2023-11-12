@@ -32,7 +32,7 @@ ${EXECUTABLES}:
     done ; \
 
 build: git-status ${EXECUTABLES}
-	rm -f build/current
+	rm -rf build/current
 	cp -R $(CDIR)/build/$(COMMIT) $(CDIR)/build/current
 
 docker-build: build ## create docker image with commit tag
