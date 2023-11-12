@@ -43,7 +43,7 @@ docker-build: build ## create docker image with commit tag
        	-f Dockerfile .; \
 	)
 
-release: ## upload the latest docker image to ECR
+release: docker-build ## upload the latest docker image to ECR
 	( \
 	   aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 709310380790.dkr.ecr.us-east-1.amazonaws.com; \
 	   docker tag looch:latest 709310380790.dkr.ecr.us-east-1.amazonaws.com/looch:latest; \
