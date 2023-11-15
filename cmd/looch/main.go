@@ -65,6 +65,12 @@ func main() {
 		// Get master secret
 		masterSecret, _ := getSecretFromEnvVar(MasterSecretEnvVar, &logger)
 		log.Info().Msgf("master secret host: %v", masterSecret.Host)
+		err := db.TCPConn(masterSecret)
+		if err != nil {
+			logger.Error().Err(err).Msgf("error opening TCP connection to master secret host: %v", masterSecret.Host)
+		} else {
+			logger.Info().Msgf("Opened TCP connection to master secret host: %v", masterSecret.Host)
+		}
 		db.ConnectAndPingDB(masterSecret, &logger)
 		logger.Info().Msgf("sleeping for interval: %v", interval)
 		time.Sleep(time.Duration(interval) * time.Second)
