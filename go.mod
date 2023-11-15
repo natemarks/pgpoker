@@ -3,6 +3,7 @@ module github.com/natemarks/looch
 go 1.21.3
 
 require (
+	github.com/lib/pq v1.10.9
 	github.com/natemarks/secret-hoard v0.0.0-20231114145949-169d27ef763d
 	github.com/rs/zerolog v1.31.0
 )

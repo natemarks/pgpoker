@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/rs/zerolog/log"
-
+	"github.com/natemarks/looch/db"
 	"github.com/natemarks/secret-hoard/types"
 	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
 const (
@@ -65,6 +65,7 @@ func main() {
 		// Get master secret
 		masterSecret, _ := getSecretFromEnvVar(MasterSecretEnvVar, &logger)
 		log.Info().Msgf("master secret host: %v", masterSecret.Host)
+		db.ConnectAndPingDB(masterSecret, &logger)
 		logger.Info().Msgf("sleeping for interval: %v", interval)
 		time.Sleep(time.Duration(interval) * time.Second)
 	}
