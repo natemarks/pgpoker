@@ -11,16 +11,15 @@ import (
 
 // ConnectAndPingDB connects to PostgreSQL and performs a ping to check the connection
 func ConnectAndPingDB(secret types.RDSSecretData, log *zerolog.Logger) error {
-	// Replace with your actual PostgreSQL connection string
-	connectionString := fmt.Sprintf(
-		"postgres://%v:%v@%v:%d/postgres?sslmode=disable",
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		secret.Host,
+		secret.Port,
 		secret.Username,
 		secret.Password,
-		secret.Host,
-		secret.Port)
-
+		"postgres")
 	// Connect to the PostgreSQL database
-	db, err := sql.Open("postgres", connectionString)
+	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		log.Error().Err(err).Msg("")
 		return err
