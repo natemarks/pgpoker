@@ -13,7 +13,7 @@ import (
 func ConnectAndPingDB(secret types.RDSSecretData, log *zerolog.Logger) error {
 	// Replace with your actual PostgreSQL connection string
 	connectionString := fmt.Sprintf(
-		"postgres://%v:%v@%v:%v/postgres?sslmode=disable",
+		"postgres://%v:%v@%v:%d/postgres?sslmode=disable",
 		secret.Username,
 		secret.Password,
 		secret.Host,
