@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/natemarks/looch/version"
+
 	"github.com/natemarks/looch/db"
 	"github.com/natemarks/secret-hoard/types"
 	"github.com/rs/zerolog"
@@ -57,7 +59,7 @@ func getSecretFromEnvVar(envVarKey string, log *zerolog.Logger) (secret types.RD
 }
 func main() {
 	zerolog.SetGlobalLevel(zerolog.InfoLevel)
-	logger := zerolog.New(os.Stderr).With().Timestamp().Logger()
+	logger := zerolog.New(os.Stderr).With().Str("version", version.Version).Timestamp().Logger()
 	interval := getInterval()
 	logger.Info().Msgf("starting with interval: %v", interval)
 	for {
