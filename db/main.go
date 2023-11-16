@@ -60,13 +60,13 @@ func ListRoles(conn *sql.DB) (roles []string, err error) {
 		return roles, err
 	}
 
-	fmt.Println("List of Roles:")
 	for rows.Next() {
 		var roleName string
 		err := rows.Scan(&roleName)
 		if err != nil {
 			return roles, err
 		}
+		roles = append(roles, roleName)
 	}
 
 	return roles, nil
