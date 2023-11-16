@@ -56,7 +56,6 @@ func getSecretFromEnvVar(envVarKey string, log *zerolog.Logger) (secret types.RD
 	return secret, err
 }
 func main() {
-
 	zerolog.SetGlobalLevel(zerolog.InfoLevel)
 	logger := zerolog.New(os.Stderr).With().Timestamp().Logger()
 	interval := getInterval()
@@ -71,7 +70,7 @@ func main() {
 		} else {
 			logger.Info().Msgf("Opened TCP connection to master secret host: %v", masterSecret.Host)
 		}
-		db.ConnectAndPingDB(masterSecret, &logger)
+		db.CheckInstance(masterSecret, &logger)
 		logger.Info().Msgf("sleeping for interval: %v", interval)
 		time.Sleep(time.Duration(interval) * time.Second)
 	}
