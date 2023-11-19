@@ -1,4 +1,4 @@
-module github.com/natemarks/looch
+module github.com/natemarks/pgpoker
 
 go 1.21.3
 

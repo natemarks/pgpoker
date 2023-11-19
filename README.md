@@ -1,4 +1,4 @@
-# looch
+# pgpoker
 this project is an apprunner/cdk  experiment. It includes a go program that
 does something on an interval  and logs/alerts teh results
 

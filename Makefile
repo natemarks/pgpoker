@@ -4,12 +4,12 @@
 # Be sure to place this BEFORE `include` directives, if any.
 DEFAULT_BRANCH := main
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
-PKG := github.com/natemarks/looch
+PKG := github.com/natemarks/pgpoker
 COMMIT := $(shell git rev-parse HEAD)
 PKG_LIST := $(shell go list ${PKG}/... | grep -v /vendor/)
 GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/)
 CDIR = $(shell pwd)
-EXECUTABLES := looch
+EXECUTABLES := pgpoker
 GOOS := linux
 GOARCH := amd64
 
@@ -27,7 +27,7 @@ ${EXECUTABLES}:
         echo "COMMIT: $(COMMIT)" >> build/$(COMMIT)/$${o}/$${a}/version.txt ; \
         env GOOS=$${o} GOARCH=$${a} \
         go build  -v -o build/$(COMMIT)/$${o}/$${a}/$@ \
-				-ldflags="-X github.com/natemarks/looch/version.Version=${COMMIT}" ${PKG}/cmd/$@; \
+				-ldflags="-X github.com/natemarks/pgpoker/version.Version=${COMMIT}" ${PKG}/cmd/$@; \
 	  done \
     done ; \
 
@@ -38,23 +38,23 @@ build: git-status ${EXECUTABLES}
 docker-build: build ## create docker image with commit tag
 	( \
 	   docker build --no-cache \
-       	-t looch:$(COMMIT) \
-       	-t looch:latest \
+       	-t pgpoker:$(COMMIT) \
+       	-t pgpoker:latest \
        	-f Dockerfile .; \
 	)
 
 release: docker-build ## upload the latest docker image to ECR
 	( \
 	   aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 709310380790.dkr.ecr.us-east-1.amazonaws.com; \
-	   docker tag looch:latest 709310380790.dkr.ecr.us-east-1.amazonaws.com/looch:latest; \
-	   docker push 709310380790.dkr.ecr.us-east-1.amazonaws.com/looch:latest; \
+	   docker tag pgpoker:latest 709310380790.dkr.ecr.us-east-1.amazonaws.com/pgpoker:latest; \
+	   docker push 709310380790.dkr.ecr.us-east-1.amazonaws.com/pgpoker:latest; \
 	)
 
 docker-run: ## run docker image
 	( \
 	   docker run -it --rm \
 	   	-e INTERVAL='6' \
-	   	looch \
+	   	pgpoker \
 	)
 
 test:

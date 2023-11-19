@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/natemarks/looch/version"
+	"github.com/natemarks/pgpoker/version"
 
-	"github.com/natemarks/looch/db"
+	"github.com/natemarks/pgpoker/db"
 	"github.com/natemarks/secret-hoard/types"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
